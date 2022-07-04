@@ -1,0 +1,51 @@
+<html>
+   <head>
+      <title>URL Shortener</title>
+      <style>
+         body{
+         background-color: whitesmoke;
+         text-align: center;
+         }
+         #originalUrl{
+         border: 1px solid gray;
+         outline: none;
+         height: 50px;
+         width: 500px;
+         font-size: 20px;
+         margin-top:  10%;
+         }
+         #shortener{
+         background-color: blue;
+         height: 50px;
+         color: white;
+         font-size: 20px;
+         border: 1px solid blue;
+         }
+         #shortener:hover{
+         cursor: pointer;
+         }
+      </style>
+   </head>
+
+   <body>
+      <input type="text" placeholder="your long url" value="" id="originalUrl" />
+      <button id="shortener" onclick="shorten()">Shorten URL</button>
+      <br><br><br>
+      <a href="" id="shortUrl" target="_blank">short url in here</a>
+   </body>
+
+   <script>
+      function shorten(){
+         const xhttp = new XMLHttpRequest();
+         xhttp.onload = function() {
+             document.getElementById("shortUrl").innerHTML =this.responseText
+              document.getElementById("shortUrl").setAttribute("href", this.responseText)
+           }
+          var originalUrl= document.getElementById("originalUrl").value;
+          xhttp.open("POST", "http://localhost?originalUrl="+originalUrl, true);
+          xhttp.setRequestHeader("Content-type", "application/text");
+          xhttp.send();
+   }
+      
+   </script>
+</html>
