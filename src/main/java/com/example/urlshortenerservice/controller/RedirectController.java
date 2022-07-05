@@ -1,29 +1,21 @@
 package com.example.urlshortenerservice.controller;
 
-import com.example.urlshortenerservice.service.UrlService;
+import com.example.urlshortenerservice.service.impl.UrlServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
-@Controller
-@CrossOrigin
+@RequestMapping("/shortUrl")
+@RestController
+@RequiredArgsConstructor
 public class RedirectController {
 
-    private final UrlService urlService;
+    private final UrlServiceImpl urlService;
 
-    public RedirectController(UrlService urlService) {
-        this.urlService = urlService;
-    }
-
-    @GetMapping("{shortUrl}")
-    ResponseEntity<Void> redirect(@PathVariable("shortUrl") String shortUrl) {
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create(urlService.getOriginalUrl(String.format("http://localhost/%s", shortUrl)))).build();
+    @GetMapping("/{shortUrl}")
+    @ResponseStatus(HttpStatus.OK)
+    public void redirect(@PathVariable("shortUrl") String shortUrl) {
+        urlService.getOriginalUrl("http://localhost/" + shortUrl);
     }
 
 }

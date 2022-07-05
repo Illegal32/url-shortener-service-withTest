@@ -3,6 +3,7 @@ package com.example.urlshortenerservice.service.impl;
 import com.example.urlshortenerservice.model.UrlEntity;
 import com.example.urlshortenerservice.repository.UrlRepository;
 import com.example.urlshortenerservice.service.UrlService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
